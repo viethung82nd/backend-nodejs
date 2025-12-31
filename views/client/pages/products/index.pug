@@ -6,17 +6,18 @@ block main
     .row
       .col-12
         +box-head('Sản Phẩm Mới Nhất')
-
-    .row
-      .col-4.mb-3
-        .product-item
-          .inner-image
-            img(
-              src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png",
-              alt="iPhone 9"
-            )
-          .inner-content
-            h3.inner-title Nike Dunk High
-            .inner-price-new 80$
-            .inner-price-old 100$
-            .inner-discount -20%
+    
+      .row
+      each item in products    
+        .col-4.mb-3
+          .product-item
+            .inner-image
+              img(
+                src=item.thumbnail,
+                alt=item.title
+              )
+            .inner-content
+              h3.inner-title #{item.title}
+              .inner-price-new #{item.priceNew}$
+              .inner-price-old #{item.price}$
+              .inner-discount #{item.discountPercentage}%

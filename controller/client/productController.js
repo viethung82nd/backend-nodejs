@@ -6,8 +6,6 @@ module.exports.index = async (req, res) => {
     deleted: false,
   });
 
-  console.log(products);
-
   const newProducts = products.map((item) => {
     item.priceNew = (
       item.price -

@@ -9,7 +9,6 @@ if (buttonsStatus.length > 0) {
       const status = button.getAttribute("button-status");
       if (status) {
         url.searchParams.set("status", status);
-        console.log(url.href);
       } else {
         url.searchParams.delete("status");
       }
@@ -39,3 +38,20 @@ if (formSearch) {
   });
 }
 //End Search
+
+//paging
+const buttonPaging = document.querySelectorAll("[button-paging]");
+
+if (buttonPaging) {
+  let url = new URL(window.location.href);
+
+  buttonPaging.forEach((paging) => {
+    paging.addEventListener("click", () => {
+      const currentPage = paging.getAttribute("button-paging");
+
+      url.searchParams.set("page", currentPage);
+      window.location.href = url.href;
+    });
+  });
+}
+//end paging

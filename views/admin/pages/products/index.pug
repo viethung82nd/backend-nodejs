@@ -1,18 +1,16 @@
 extends ../../layouts/default.pug
+include ../../mixins/filter-status
 
 block main
     h1 Trang Products Admin
+
 
     .card.mb-3
       .card-header Bộ lọc và Tìm kiếm
       .card-body
         .row
           .col-6 
-            each item in filterStatus
-              button(
-                  class=`btn btn-sm ml-1 btn-outline-success ${item.class}`
-                  button-status=item.status
-              ) #{item.name}
+            +filter-status(filterStatus)
           .col-6 
             form(id="form-search")
               .input-group

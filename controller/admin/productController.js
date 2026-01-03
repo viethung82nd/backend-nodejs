@@ -37,11 +37,19 @@ module.exports.product = async (req, res) => {
     find.status = req.query.status;
   }
 
+  if (req.query.keyword) {
+    find.title = {
+      $regex: req.query.keyword,
+      $options: "i", // i = ignore case
+    };
+  }
+
   const products = await Products.find(find);
 
   res.render("admin/pages/products/index", {
     title: "Products",
     products: products,
     filterStatus: filterStatus,
+    keyword: req.query.keyword,
   });
 };

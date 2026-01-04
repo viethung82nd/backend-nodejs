@@ -2,7 +2,9 @@ const Products = require("../../models/productModel");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const pagingHelper = require("../../helpers/paging");
 const Product = require("../../models/productModel");
+const mongoose = require("mongoose");
 
+// admin/products
 module.exports.product = async (req, res) => {
   const find = {
     deleted: false,
@@ -45,4 +47,13 @@ module.exports.product = async (req, res) => {
     keyword: req.query.keyword,
     paging: objectPaging,
   });
+};
+
+//admin/products/change-status
+module.exports.changeStatus = async (req, res) => {
+  const id = req.params.id;
+  const status = req.params.status;
+
+  await Product.updateOne({ _id: id }, { status: status });
+  res.redirect("/admin/products");
 };

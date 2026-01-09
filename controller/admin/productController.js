@@ -57,3 +57,13 @@ module.exports.changeStatus = async (req, res) => {
   await Product.updateOne({ _id: id }, { status: status });
   res.redirect("/admin/products");
 };
+
+//admin/products/change-multi
+module.exports.multiChangeStatus = async (req, res) => {
+  const idsArray = req.body.ids.split(",").map((id) => id.trim());
+  idsArray.forEach(async (element) => {
+    await Product.updateOne({ _id: element }, { status: req.body.type });
+  });
+
+  res.redirect("/admin/products");
+};

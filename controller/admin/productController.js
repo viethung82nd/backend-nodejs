@@ -67,3 +67,9 @@ module.exports.multiChangeStatus = async (req, res) => {
 
   res.redirect("/admin/products");
 };
+
+//admin/products/delete
+module.exports.delete = async (req, res) => {
+  await Product.updateOne({ _id: req.params.id }, { deleted: true });
+  res.redirect("/admin/products");
+};

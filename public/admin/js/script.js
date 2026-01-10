@@ -57,8 +57,8 @@ if (buttonPaging) {
 //end paging
 
 // Multi change status
-const checkboxMulti = document.querySelector("[checkbox-multi]");
 
+const checkboxMulti = document.querySelector("[checkbox-multi]");
 if (checkboxMulti) {
   const multiInput = checkboxMulti.querySelector("input[name='checkall']");
   const input = checkboxMulti.querySelectorAll("input[name='id']");
@@ -109,3 +109,22 @@ if (formChangeMulti) {
   });
 }
 // End multi change status
+
+// Delete product
+const buttonDelete = document.querySelectorAll("[button-delete]");
+
+if (buttonDelete.length > 0) {
+  const formDelete = document.querySelector("#form-delete");
+  buttonDelete.forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("delete-id");
+
+      const path = formDelete.getAttribute("path");
+      const action = `${path}/${id}?_method=DELETE`;
+      formDelete.action = action;
+      formDelete.submit();
+    });
+  });
+}
+
+// End delete product

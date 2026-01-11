@@ -96,12 +96,25 @@ if (formChangeMulti) {
       "input[name= 'id']:checked"
     );
 
+    const typeChange = formChangeMulti.querySelector(
+      "select[name='type']"
+    ).value;
+
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
-      console.log(inputIds);
+
       inputChecked.forEach((checked) => {
-        ids.push(checked.value);
+        if (typeChange == "change-position") {
+          const position = checked
+            .closest("tr")
+            .querySelector("input[name='position']").value;
+          const idAndPosition = `${checked.value}-${position}`;
+          //console.log(idAndPosition);
+          ids.push(idAndPosition);
+        } else {
+          ids.push(checked.value);
+        }
       });
       inputIds.value = ids.join(", ");
       formChangeMulti.submit();
@@ -128,3 +141,20 @@ if (buttonDelete.length > 0) {
 }
 
 // End delete product
+
+// Alert
+const showAlert = document.querySelector("[show-alert]");
+if (showAlert) {
+  const time = parseInt(showAlert.getAttribute("data-time"));
+  setTimeout(() => {
+    showAlert.classList.add("alert-hidden");
+  }, time);
+
+  const closeAlert = showAlert.querySelector("[close-alert]");
+  if (closeAlert) {
+    closeAlert.addEventListener("click", () => {
+      showAlert.classList.add("alert-hidden");
+    });
+  }
+}
+// End Alert

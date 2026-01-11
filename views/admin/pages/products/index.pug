@@ -4,6 +4,11 @@ include ../../mixins/paging
 include ../../mixins/form-change-multi
 
 block main
+
+  - if (messages.success)
+    .message.info
+      div(class="alert alert-success" show-alert data-time='5000') #{messages.success} <span close-alert>X
+    
   h1 Trang Products Admin
 
 
@@ -48,6 +53,7 @@ block main
               th Hình ảnh
               th Tiêu đề
               th Giá
+              th Vị trí
               th Trạng thái
               th Hành động
         tbody
@@ -65,6 +71,14 @@ block main
                   )
               td #{item.title}
               td #{item.price}$
+              td 
+                input(
+                  type='number'
+                  value=item.position
+                  style='width: 60px'
+                  min='1'
+                  name='position'
+                )
               td
                   if(item.status == "active")
                       a(href="javascript:;"

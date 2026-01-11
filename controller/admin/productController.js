@@ -37,6 +37,7 @@ module.exports.product = async (req, res) => {
   //end paging
 
   const products = await Products.find(find)
+    .sort({ position: "desc" })
     .limit(objectPaging.limits)
     .skip(objectPaging.skip);
 
@@ -55,15 +56,39 @@ module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
 
   await Product.updateOne({ _id: id }, { status: status });
+  req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
   res.redirect("/admin/products");
 };
 
 //admin/products/change-multi
 module.exports.multiChangeStatus = async (req, res) => {
   const idsArray = req.body.ids.split(",").map((id) => id.trim());
-  idsArray.forEach(async (element) => {
-    await Product.updateOne({ _id: element }, { status: req.body.type });
-  });
+
+  const type = req.body.type;
+  if (type == "change-position") {
+    for (const item of idsArray) {
+      const [id, position] = item.split("-");
+      await Product.updateOne({ _id: id }, { position: parseInt(position) });
+      req.flash("success", "Cập nhật vị trí sản phẩm thành công");
+    }
+  } else {
+    idsArray.forEach(async (element) => {
+      switch (type) {
+        case "active":
+          await Product.updateOne({ _id: element }, { status: "active" });
+          req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
+          break;
+        case "inactive":
+          await Product.updateOne({ _id: element }, { status: "inactive" });
+          req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
+          break;
+        case "delete":
+          await Product.updateOne({ _id: element }, { deleted: true });
+          req.flash("success", "Xóa sản phẩm thành công");
+          break;
+      }
+    });
+  }
 
   res.redirect("/admin/products");
 };

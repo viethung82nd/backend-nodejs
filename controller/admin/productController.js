@@ -32,7 +32,7 @@ module.exports.product = async (req, res) => {
       limits: 4,
     },
     count,
-    req.query
+    req.query,
   );
   //end paging
 
@@ -96,5 +96,28 @@ module.exports.multiChangeStatus = async (req, res) => {
 //admin/products/delete
 module.exports.delete = async (req, res) => {
   await Product.updateOne({ _id: req.params.id }, { deleted: true });
+  res.redirect("/admin/products");
+};
+
+//admin/products/create
+module.exports.create = async (req, res) => {
+  res.render("admin/pages/products/create");
+};
+
+//admin/products/createPost
+module.exports.createPost = async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.stock = parseInt(req.body.stock);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+
+  if (req.body.position) {
+    req.body.position = parseInt(req.body.position);
+  } else {
+    const countProducts = await Product.countDocuments();
+    req.body.position = countProducts + 1;
+  }
+  const newProduct = new Product(req.body);
+
+  await newProduct.save();
   res.redirect("/admin/products");
 };

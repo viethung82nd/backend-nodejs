@@ -116,8 +116,11 @@ module.exports.createPost = async (req, res) => {
     const countProducts = await Product.countDocuments();
     req.body.position = countProducts + 1;
   }
-  const newProduct = new Product(req.body);
 
+  console.log(req.file);
+  req.body.thumbnail = `/uploads/${req.file.filename}`;
+
+  const newProduct = new Product(req.body);
   await newProduct.save();
   res.redirect("/admin/products");
 };

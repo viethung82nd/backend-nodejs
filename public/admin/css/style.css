@@ -87,3 +87,37 @@ body .sider {
 }
 
 /* End Show Alert */
+
+/* Image Preview */
+/* img preview */
+[image-preview] {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  display: none; /* ẩn mặc định */
+}
+
+/* nút X */
+.remove-image {
+  width: 15px;
+  text-align: center;
+  background: #e53935;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔑 khi có ảnh */
+[upload-image].has-image [image-preview],
+[upload-image].has-image .remove-image {
+  display: block;
+}
+
+/* End Image Preview */

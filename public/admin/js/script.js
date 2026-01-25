@@ -77,7 +77,7 @@ if (checkboxMulti) {
   input.forEach((checkbox) => {
     checkbox.addEventListener("click", () => {
       const countChecked = checkboxMulti.querySelectorAll(
-        "input[name= 'id']:checked"
+        "input[name= 'id']:checked",
       );
       if (countChecked.length == input.length) {
         multiInput.checked = true;
@@ -93,11 +93,11 @@ if (formChangeMulti) {
   formChangeMulti.addEventListener("submit", (e) => {
     e.preventDefault();
     const inputChecked = checkboxMulti.querySelectorAll(
-      "input[name= 'id']:checked"
+      "input[name= 'id']:checked",
     );
 
     const typeChange = formChangeMulti.querySelector(
-      "select[name='type']"
+      "select[name='type']",
     ).value;
 
     if (inputChecked.length > 0) {
@@ -158,3 +158,23 @@ if (showAlert) {
   }
 }
 // End Alert
+
+// Upload Image
+const upload = document.querySelector("[upload-image]");
+if (upload) {
+  const imageInput = document.querySelector("[image-input]");
+  const imagePreview = document.querySelector("[image-preview]");
+  const removeBtn = document.getElementById("removeImage");
+  imageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    imagePreview.src = URL.createObjectURL(file);
+    upload.classList.add("has-image");
+  });
+
+  removeBtn.addEventListener("click", function () {
+    imagePreview.src = "";
+    upload.classList.remove("has-image");
+    imageInput.value = "";
+  });
+}
+//End Upload Image

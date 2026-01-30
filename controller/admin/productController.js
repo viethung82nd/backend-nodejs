@@ -117,10 +117,39 @@ module.exports.createPost = async (req, res) => {
     req.body.position = countProducts + 1;
   }
 
-  console.log(req.file);
-  req.body.thumbnail = `/uploads/${req.file.filename}`;
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
 
   const newProduct = new Product(req.body);
   await newProduct.save();
   res.redirect("/admin/products");
+};
+
+//admin/products/edit
+module.exports.edit = async (req, res) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+  const product = await Product.findOne(find);
+  res.render("admin/pages/products/edit", {
+    product: product,
+  });
+};
+
+//admin/products/edit
+module.exports.editPatch = async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.stock = parseInt(req.body.stock);
+  req.body.discountPercentage = parseFloat(req.body.discountPercentage);
+
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
+
+  await Product.updateOne({ _id: req.params.id }, req.body);
+
+  // ✅ redirect đúng route
+  res.redirect(`/admin/products/edit/${req.params.id}`);
 };

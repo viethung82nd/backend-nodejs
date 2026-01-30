@@ -165,6 +165,9 @@ if (upload) {
   const imageInput = document.querySelector("[image-input]");
   const imagePreview = document.querySelector("[image-preview]");
   const removeBtn = document.getElementById("removeImage");
+  if (imagePreview.src) {
+    upload.classList.add("has-image");
+  }
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     imagePreview.src = URL.createObjectURL(file);

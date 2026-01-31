@@ -19,3 +19,15 @@ module.exports.index = async (req, res) => {
     products: newProducts,
   });
 };
+
+module.exports.detail = async (req, res) => {
+  const find = {
+    deleted: false,
+    status: "active",
+    slug: req.params.slug,
+  };
+
+  const product = await Product.findOne(find);
+
+  res.render("client/pages/products/detail", { product: product });
+};

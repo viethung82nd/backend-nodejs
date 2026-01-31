@@ -9,7 +9,9 @@ var cookieParser = require("cookie-parser");
 var session = require("express-session");
 
 require("dotenv").config();
-database.connect();
+(async () => {
+  await database.connect();
+})();
 
 const app = express();
 const port = process.env.PORT;
@@ -31,6 +33,6 @@ app.use(express.static(`${__dirname}/public`));
 route(app);
 routeAdmin(app);
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running at http://localhost:${port}`);
+// });

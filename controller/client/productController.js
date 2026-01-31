@@ -8,10 +8,11 @@ module.exports.index = async (req, res) => {
     }).sort({ position: "desc" });
 
     const newProducts = products.map((item) => {
-      item.priceNew = (
-        item.price -
-        (item.price * item.discountPercentage) / 100
-      ).toFixed(0);
+      const price = item.price || 0;
+      const discount = item.discountPercentage || 0;
+
+      item.priceNew = (price - (price * discount) / 100).toFixed(0);
+
       return item;
     });
 

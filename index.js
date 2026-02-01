@@ -33,4 +33,4 @@ app.use(express.static(`${__dirname}/public`));
 route(app);
 routeAdmin(app);
 
-module.exports = app;
+module.exports = index;

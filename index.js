@@ -32,7 +32,6 @@ app.use(express.static(`${__dirname}/public`));
 
 route(app);
 routeAdmin(app);
-module.exports = app;
 
 // app.listen(port, () => {
 //   console.log(`Server is running at http://localhost:${port}`);

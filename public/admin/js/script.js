@@ -181,3 +181,32 @@ if (upload) {
   });
 }
 //End Upload Image
+
+// sort
+const sortForm = document.querySelector("[sort-form]");
+
+if (sortForm) {
+  sortForm.addEventListener("change", (e) => {
+    const action = e.target.value; // 👈 LẤY VALUE
+    let url = new URL(window.location.href);
+
+    if (action) {
+      url.searchParams.set("sort", action);
+    } else {
+      url.searchParams.delete("sort");
+    }
+    window.location.href = url.href;
+    console.log(window.location.href);
+  });
+}
+
+const buttonClear = document.querySelector("[sort-clear]");
+
+if (buttonClear) {
+  buttonClear.addEventListener("click", () => {
+    // Chỉ giữ lại path, xoá toàn bộ query
+    window.location.href = window.location.pathname;
+  });
+}
+
+// end sort

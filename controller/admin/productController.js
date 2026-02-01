@@ -14,6 +14,17 @@ module.exports.product = async (req, res) => {
     find.status = req.query.status;
   }
 
+  // sort
+  let sortQuery = { position: -1 }; // default
+
+  if (req.query.sort) {
+    const [field, order] = req.query.sort.split("-");
+    sortQuery = {
+      [field]: order === "asc" ? 1 : -1,
+    };
+  }
+  // end sort
+
   //search
   if (req.query.keyword) {
     find.title = {
@@ -37,7 +48,7 @@ module.exports.product = async (req, res) => {
   //end paging
 
   const products = await Products.find(find)
-    .sort({ position: "desc" })
+    .sort(sortQuery)
     .limit(objectPaging.limits)
     .skip(objectPaging.skip);
 
@@ -47,6 +58,7 @@ module.exports.product = async (req, res) => {
     filterStatus: filterStatusHelper(req.query),
     keyword: req.query.keyword,
     paging: objectPaging,
+    sort: req.query.sort,
   });
 };
 

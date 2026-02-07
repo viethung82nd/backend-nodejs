@@ -13,7 +13,6 @@ module.exports.index = async (req, res) => {
 
     categories.forEach((item) => {
       if (item.parentId === parentId) {
-        item.index = count;
         const children = buildTree(categories, item._id.toString());
 
         if (children.length > 0) {

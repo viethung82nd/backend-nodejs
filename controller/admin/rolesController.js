@@ -15,3 +15,9 @@ module.exports.createPost = async (req, res) => {
   record.save();
   res.redirect("/admin/roles");
 };
+
+module.exports.permissions = async (req, res) => {
+  const find = { deleted: false };
+  const records = await Role.find(find);
+  res.render("admin/pages/roles/permissions", { records: records });
+};

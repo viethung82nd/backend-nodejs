@@ -1,3 +1,5 @@
+//Table permissions
+
 const tablePermissions = document.querySelector("[table-permissions]");
 
 if (tablePermissions) {
@@ -21,7 +23,7 @@ if (tablePermissions) {
         });
       }
     });
-    if (permissions.permissions.length > 0) {
+    if (permissions.length > 0) {
       const formSubmitPermissions = document.querySelector(
         "#form-submit-permissions",
       );
@@ -31,3 +33,18 @@ if (tablePermissions) {
     }
   });
 }
+//Table permissions
+
+//data permissions
+const records = document.querySelector("[data-records]");
+const dataRecords = JSON.parse(records.getAttribute("data-records"));
+
+dataRecords.forEach((item, index) => {
+  const permissions = item.permissions;
+  permissions.forEach((item) => {
+    const row = tablePermissions.querySelector(`[data-name=${item}]`);
+    const input = row.querySelectorAll("input")[index];
+    input.checked = true;
+  });
+});
+//end data permissions

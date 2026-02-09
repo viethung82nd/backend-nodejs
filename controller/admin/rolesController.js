@@ -21,3 +21,11 @@ module.exports.permissions = async (req, res) => {
   const records = await Role.find(find);
   res.render("admin/pages/roles/permissions", { records: records });
 };
+
+module.exports.permissionsPatch = async (req, res) => {
+  const permissionsArray = JSON.parse(req.body.permissions);
+  for (const item of permissionsArray) {
+    await Role.updateOne({ _id: item.id }, { permissions: item.permissions });
+  }
+  res.send("ok");
+};

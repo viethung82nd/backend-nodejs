@@ -10,6 +10,7 @@ block main
       button-submit
       class="btn btn-primary"
     ) Cập nhật
+  div(data-records=records)
 
   table(class="table table-hover table-sm" table-permissions)
     thead
@@ -32,12 +33,6 @@ block main
         each item in records
           td(class="text-center")
             input(type="checkbox")
-      tr(data-name="products-category-view")
-        td Xem
-        each item in records
-          td(class="text-center")
-            input(type="checkbox")
-
       tr(data-name="products-category-create")
         td Thêm mới
         each item in records

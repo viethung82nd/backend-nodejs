@@ -1,0 +1,10 @@
+mixin alert(type, messages, time = 5000)
+  if messages && messages.length
+    each msg in messages
+      .alert(
+        class=`alert-${type}`
+        show-alert
+        data-time=time
+      )
+        span= msg
+        span.close( close-alert ) ×

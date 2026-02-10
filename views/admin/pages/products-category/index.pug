@@ -7,9 +7,10 @@ include ../../mixins/categoryTable
 
 block main
 
-  - if (messages.success)
-    .message.info
-      div(class="alert alert-success" show-alert data-time='5000') #{messages.success} <span close-alert>X
+  +alert('success', messages.success)
+  +alert('danger', messages.danger)
+  +alert('warning', messages.warning)
+  +alert('info', messages.info)
     
   h1 Trang Products Category Admin
 

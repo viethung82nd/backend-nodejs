@@ -84,22 +84,24 @@ module.exports.multiChangeStatus = async (req, res) => {
       req.flash("success", "Cập nhật vị trí sản phẩm thành công");
     }
   } else {
-    idsArray.forEach(async (element) => {
+    for (const element of idsArray) {
       switch (type) {
         case "active":
           await Product.updateOne({ _id: element }, { status: "active" });
-          req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
           break;
         case "inactive":
           await Product.updateOne({ _id: element }, { status: "inactive" });
-          req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
           break;
         case "delete":
           await Product.updateOne({ _id: element }, { deleted: true });
-          req.flash("success", "Xóa sản phẩm thành công");
           break;
       }
-    });
+    }
+    if (type === "delete") {
+      req.flash("success", "Xóa sản phẩm thành công");
+    } else {
+      req.flash("success", "Cập nhật trạng thái sản phẩm thành công");
+    }
   }
 
   res.redirect("/admin/products");
@@ -108,6 +110,7 @@ module.exports.multiChangeStatus = async (req, res) => {
 //admin/products/delete
 module.exports.delete = async (req, res) => {
   await Product.updateOne({ _id: req.params.id }, { deleted: true });
+  req.flash("success", "Xóa sản phẩm thành công");
   res.redirect("/admin/products");
 };
 

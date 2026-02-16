@@ -4,6 +4,7 @@ include ../../mixins/paging
 include ../../mixins/form-change-multi
 include ../../mixins/sort
 include ../../mixins/categoryTable
+include ../../mixins/alert
 
 block main
 
@@ -53,10 +54,11 @@ block main
         .col-8 
           +form-change-multi(`/admin/products/change-multi?_method=PATCH`)
         .col-4 
-          a(
-            href=`/admin/products-category/create`
-            class="btn btn-outline-success"
-          ) + Add Product
+          if(role.permissions.includes("product-category-create"))
+            a(
+              href=`/admin/products-category/create`
+              class="btn btn-outline-success"
+            ) + Add Product Category
 
       table(
         class = 'table table-hover table-sm'

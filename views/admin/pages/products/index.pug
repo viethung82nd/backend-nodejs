@@ -55,10 +55,11 @@ block main
         .col-8 
           +form-change-multi(`/admin/products/change-multi?_method=PATCH`)
         .col-4 
-          a(
-            href=`/admin/products/create`
-            class="btn btn-outline-success"
-          ) + Add Product
+          if(role.permissions.includes("products-create"))
+            a(
+              href=`/admin/products/create`
+              class="btn btn-outline-success"
+            ) + Add Product
 
       table(
         class = 'table table-hover table-sm'

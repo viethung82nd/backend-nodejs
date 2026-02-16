@@ -45,6 +45,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
+const passport = require("./config/passport");
 
 require("dotenv").config();
 
@@ -56,7 +57,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 
 app.use(cookieParser("viethung"));
-app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(
+  session({
+    secret: "mySecretKey", // bắt buộc
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60 * 60 * 1000, // 1 giờ
+    },
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 
 app.set("views", `${__dirname}/views`);

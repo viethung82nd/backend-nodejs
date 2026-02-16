@@ -57,7 +57,7 @@ block main
                   )
               td #{item.fullName}
               td #{item.email}
-              td #{item.role.title}
+              td #{item.role ? item.role.title : "Chưa phân quyền"}
               td
                   if(item.status == "active")
                       a(href="javascript:;"

@@ -3,7 +3,11 @@ const Account = require("../../models/AccountModel");
 const md5 = require("md5");
 
 module.exports.login = async (req, res) => {
-  res.render("admin/pages/auth/login");
+  if (req.cookies.token) {
+    res.redirect("/admin/dashboard");
+  } else {
+    res.render("admin/pages/auth/login");
+  }
 };
 
 module.exports.loginPost = async (req, res) => {

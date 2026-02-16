@@ -27,5 +27,5 @@ module.exports.permissionsPatch = async (req, res) => {
   for (const item of permissionsArray) {
     await Role.updateOne({ _id: item.id }, { permissions: item.permissions });
   }
-  res.send("ok");
+  res.redirect("/admin/roles/permissions");
 };

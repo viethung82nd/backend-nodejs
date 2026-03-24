@@ -45,7 +45,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
-const passport = require("./config/passport");
 
 require("dotenv").config();
 
@@ -67,8 +66,7 @@ app.use(
     },
   }),
 );
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(flash());
 
 app.set("views", `${__dirname}/views`);

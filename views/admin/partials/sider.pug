@@ -2,19 +2,19 @@
     .inner-menu
         ul
             li
-                a(href="/admin/dashboard") Tổng quan
+                a(href="/admin/dashboard" data-menu="/admin/dashboard") Tổng quan
             if(role.permissions.includes("products-view"))
                 li
-                    a(href="/admin/products") Sản phẩm
+                    a(href="/admin/products" data-menu="/admin/products") Sản phẩm
             if(role.permissions.includes("product-category-view"))
                 li
-                    a(href="/admin/products-category") Danh mục sản phẩm
+                    a(href="/admin/products-category" data-menu="/admin/products-category") Danh mục sản phẩm
             if(role.permissions.includes("roles-view"))
                 li
-                    a(href="/admin/roles") Nhóm quyền
+                    a(href="/admin/roles" data-menu="/admin/roles") Nhóm quyền
             if(role.permissions.includes("permissions-view"))
                 li
-                    a(href="/admin/roles/permissions") Phân quyền
+                    a(href="/admin/roles/permissions" data-menu="/admin/roles/permissions") Phân quyền
             if(role.permissions.includes("accounts-view"))
                 li
-                    a(href="/admin/accounts/") Danh sách tài khoản
+                    a(href="/admin/accounts/" data-menu="/admin/accounts") Danh sách tài khoản

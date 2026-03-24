@@ -1,3 +1,31 @@
+// ===== ACTIVE MENU HIGHLIGHT =====
+const menuLinks = document.querySelectorAll(".sider [data-menu]");
+const currentPath = window.location.pathname.replace(/\/$/, "");
+
+// Find the most specific (longest) matching menu path
+let longestMatch = "";
+
+menuLinks.forEach((link) => {
+  const menuPath = link.getAttribute("data-menu").replace(/\/$/, "");
+
+  // Check if current path matches this menu path exactly or is a sub-route
+  if (currentPath === menuPath || currentPath.startsWith(menuPath + "/")) {
+    // Keep only the longest match (most specific)
+    if (menuPath.length > longestMatch.length) {
+      longestMatch = menuPath;
+    }
+  }
+});
+
+// Apply active class only to the most specific match
+menuLinks.forEach((link) => {
+  const menuPath = link.getAttribute("data-menu").replace(/\/$/, "");
+  if (menuPath === longestMatch) {
+    link.classList.add("active");
+  }
+});
+// ===== END ACTIVE MENU =====
+
 //Filter
 const buttonsStatus = document.querySelectorAll("[button-status]");
 

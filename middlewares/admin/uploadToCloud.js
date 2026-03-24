@@ -30,7 +30,7 @@ module.exports.cloud = (req, res, next) => {
     async function upload(req) {
       let result = await streamUpload(req);
 
-      req.body.thumbnail = result.secure_url;
+      req.body.avatar = result.secure_url;
       next();
     }
 
